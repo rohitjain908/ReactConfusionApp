@@ -25,8 +25,7 @@ class CommentForm extends Component{
 
   handleSubmit(values){
     this.toggleModal();
-    console.log('Current state is: '+JSON.stringify(values));
-    alert('Current state is: '+JSON.stringify(values));
+    this.props.addComment(this.props.dishId,values.rating,values.author,values.comment);
   }
 
   render(){
@@ -59,16 +58,16 @@ class CommentForm extends Component{
                     required,minLength:minLength(3),maxLength:maxLength(15)
                   }}/>
 
-<Errors
-                                        className="text-danger"
-                                        model=".author"
-                                        show="touched"
-                                        messages={{
-                                            required: 'Required',
-                                            minLength: 'Must be greater than 2 characters',
-                                            maxLength: 'Must be 15 characters or less'
-                                        }}
-                                     />
+                  <Errors
+                    className="text-danger"
+                    model=".author"
+                    show="touched"
+                    messages={{
+                      required: 'Required',
+                      minLength: 'Must be greater than 2 characters',
+                      maxLength: 'Must be 15 characters or less'
+                    }}
+                  />
                 </Col>
               </Row>
               <Row className="form-group">
@@ -118,7 +117,7 @@ class CommentForm extends Component{
     }
 
 
-    function RenderDishComments({comments}){
+    function RenderDishComments({comments,addComment,dishId}){
      if(comments!=null)
      {
        //console.log(dish);
@@ -143,7 +142,7 @@ class CommentForm extends Component{
              <h4>Comments</h4>
              <div>
                {commt}
-               <CommentForm/>
+               <CommentForm dishId={dishId} addComment={addComment}/>
              </div>
            </div>
          )
@@ -184,7 +183,8 @@ class CommentForm extends Component{
             <RenderDishItem dish={props.dish}/>
           </div>
           <div className="col-12 col-md-5 m-1">
-            <RenderDishComments comments={props.comments}/><br/>
+            <RenderDishComments comments={props.comments}
+            addComment={props.addComment} dishId={props.dish.id}/><br/>
           </div>
         </div>
       </div>
