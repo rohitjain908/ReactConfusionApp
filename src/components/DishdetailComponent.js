@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import { Card, CardBody , CardText , CardImg ,CardTitle,Breadcrumb,BreadcrumbItem,Button,Modal,ModalHeader,ModalBody,Row,Label,Col } from 'reactstrap'
 import {Link} from 'react-router-dom';
 import {Control,LocalForm,Errors} from 'react-redux-form'
+import {Loading} from './LoadingComponent'
 
 const required=(val)=>val&&val.length;
 const minLength=(len)=>(val)=>val&&(val.length>=len);
@@ -94,6 +95,7 @@ class CommentForm extends Component{
 }
     
     function RenderDishItem({dish}){
+
      if(dish!=null)
      {
         return(
@@ -165,6 +167,25 @@ class CommentForm extends Component{
     console.log('DishDetail component render is invoked');
     //const comments=dish.comments;
     //const dish=props.dish;
+    if(props.isLoading){
+      return(
+      <div className="container">
+        <div clasName="row">
+          <Loading/>
+        </div>
+      </div>
+      )
+    }
+    else if(props.errMess){
+      return(
+      <div className="container">
+        <div clasName="row">
+          <h4>{props.errMess}</h4>
+        </div>
+      </div>
+      )
+    }
+    else{
     return(
       <div className="container">
           <div className="row">
@@ -189,6 +210,7 @@ class CommentForm extends Component{
         </div>
       </div>
     );
+    }
   }
   
 
