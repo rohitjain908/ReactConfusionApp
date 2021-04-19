@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {Control,LocalForm,Errors} from 'react-redux-form'
 import {Loading} from './LoadingComponent'
 import {baseUrl} from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger} from 'react-animation-components'
 
 const required=(val)=>val&&val.length;
 const minLength=(len)=>(val)=>val&&(val.length>=len);
@@ -101,6 +102,10 @@ class CommentForm extends Component{
      {
         return(
           <div>
+          <FadeTransform in 
+            transformProps={{
+              exitTransform:'scale(0.5) translateY(-50%)'
+            }}>
             <Card>
               <CardImg src={baseUrl+dish.image} alt={dish.name}/>
               <CardBody>
@@ -108,6 +113,7 @@ class CommentForm extends Component{
                 <CardText>{dish.description}</CardText>
               </CardBody>
             </Card>
+          </FadeTransform>
           </div>
        );
      }
@@ -131,12 +137,14 @@ class CommentForm extends Component{
         //const date=cmt.date;
         //const dt=toLocalDateString(date);
            return(
-           <div key={cmt.id}>
-             <ul className="list-unstyled">
-               <p>{cmt.comment}</p>
-               <p>-- {cmt.author},{new Intl.DateTimeFormat('en-US',{year:'numeric',month:'short',   day:'2-digit' }).format(new Date(Date.parse(cmt.date)))}</p>
-             </ul>
-           </div>  
+             <Fade in>
+              <div key={cmt.id}>
+                <ul className="list-unstyled">
+                  <p>{cmt.comment}</p>
+                  <p>-- {cmt.author},{new Intl.DateTimeFormat('en-US',{year:'numeric',month:'short',   day:'2-digit' }).format(new Date(Date.parse(cmt.date)))}</p>
+                </ul>
+              </div>  
+           </Fade>
            )
          })
 
@@ -144,7 +152,9 @@ class CommentForm extends Component{
            <div>
              <h4>Comments</h4>
              <div>
+             <Stagger in>
                {commt}
+              </Stagger>
                <CommentForm dishId={dishId} postComment={postComment}/>
              </div>
            </div>
