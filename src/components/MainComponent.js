@@ -115,7 +115,7 @@ class Main extends Component {
                       postFeedback={this.props.postFeedback}
                     />
                   )}
-                />
+              />
               <Route path='/aboutus' component={AboutPage}/>
               <Redirect to="/home"/>
             </Switch>

@@ -17,19 +17,21 @@ class Header extends Component{
     this.handleLogin=this.handleLogin.bind(this);
   }
 
+  //this is an event
   toggleNav(){
     this.setState({
       isNavOpen:!this.state.isNavOpen
     })
   }
   
+  //this is an event
   toggleModal(){
     this.setState({
       isModalOpen:!this.state.isModalOpen
     })
-
   }
 
+  //this is an event
   handleLogin(event) {
     this.toggleModal();
     alert("Username: " + this.username.value + " Password: " + this.password.value
